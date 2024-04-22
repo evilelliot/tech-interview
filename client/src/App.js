@@ -5,10 +5,13 @@ import LoginPage from './components/LoginPage';
 import CreadorPage from './components/CreadorPage';
 import AdminPage from './components/AdminPage';
 import LectorPage from './components/LectorPage';
+import HomePage from './components/HomePage';
+
 function App() {
   return (
     <Router>
       <Routes>
+      <Route path="/" element={<HomePage />} />
         <Route path="/registro" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/creator" element={<CreadorPage />} />
