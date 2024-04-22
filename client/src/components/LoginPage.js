@@ -52,7 +52,7 @@ const LoginPage = () => {
           window.location.href = '/creator';
           break;
         case 'lector':
-          window.location.href = '/reader';
+          window.location.href = '/lector';
           break;
         default:
           window.location.href = '/';
