@@ -3,6 +3,148 @@ import db from "../db/connection.js";
 import { ObjectId } from "mongodb";
 
 const router = express.Router();
+/**
+ * @swagger
+ * tags:
+ *   name: Content
+ *   description: API de gestión de contenido multimedia
+ * components:
+ *   schemas:
+ *     Content:
+ *       type: object
+ *       required:
+ *         - title
+ *         - type
+ *         - content
+ *         - credits
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: ID único del contenido multimedia
+ *         title:
+ *           type: string
+ *           description: Título del contenido multimedia
+ *         type:
+ *           type: string
+ *           description: Tipo de contenido (imagen, video, texto)
+ *         content:
+ *           type: string
+ *           description: Contenido real del multimedia (URL, texto, etc.)
+ *         credits:
+ *           type: string
+ *           description: Créditos del contenido (nombre del autor, usuario, etc.)
+ *       example:
+ *         _id: 60fc6b0f13557d001fe95b7c
+ *         title: Mi imagen
+ *         type: imagen
+ *         content: https://example.com/mi-imagen.jpg
+ *         credits: usuario123
+ */
+
+/**
+ * @swagger
+ * /content:
+ *   get:
+ *     summary: Obtiene todo el contenido multimedia
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Content'
+ */
+
+/**
+ * @swagger
+ * /content/{id}:
+ *   get:
+ *     summary: Obtiene contenido multimedia por su ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del contenido multimedia
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Content'
+ *       404:
+ *         description: Contenido multimedia no encontrado
+ */
+
+/**
+ * @swagger
+ * /content:
+ *   post:
+ *     summary: Crea nuevo contenido multimedia
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Content'
+ *     responses:
+ *       204:
+ *         description: Contenido multimedia creado exitosamente
+ *       500:
+ *         description: Error al crear contenido multimedia
+ */
+
+/**
+ * @swagger
+ * /content/{id}:
+ *   patch:
+ *     summary: Actualiza contenido multimedia por su ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del contenido multimedia
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Content'
+ *     responses:
+ *       200:
+ *         description: Contenido multimedia actualizado exitosamente
+ *       404:
+ *         description: Contenido multimedia no encontrado
+ *       500:
+ *         description: Error al actualizar contenido multimedia
+ */
+
+/**
+ * @swagger
+ * /content/{id}:
+ *   delete:
+ *     summary: Elimina contenido multimedia por su ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del contenido multimedia
+ *     responses:
+ *       200:
+ *         description: Contenido multimedia eliminado exitosamente
+ *       404:
+ *         description: Contenido multimedia no encontrado
+ *       500:
+ *         description: Error al eliminar contenido multimedia
+ */
 
 // Listar todas las categorías
 router.get("/", async (req, res) => {

@@ -3,6 +3,38 @@ import db from "../db/connection.js";
 import { ObjectId } from "mongodb";
 
 const router = express.Router();
+/**
+ * @swagger
+ * tags:
+ *   name: Topics
+ *   description: API de gestión de temáticas
+ * components:
+ *   schemas:
+ *     Topic:
+ *       type: object
+ *       required:
+ *         - name
+ *         - permissions
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: ID único de la temática
+ *         name:
+ *           type: string
+ *           description: Nombre de la temática
+ *         permissions:
+ *           type: array
+ *           description: Permisos de contenido (imágenes, videos, textos)
+ *           items:
+ *             type: string
+ *       example:
+ *         _id: 60fc6b0f13557d001fe95b7c
+ *         name: Ciencias
+ *         permissions:
+ *           - imágenes
+ *           - videos
+ *           - textos
+ */
 
 // Listar todas las temáticas
 router.get("/", async (req, res) => {
@@ -86,5 +118,19 @@ router.delete("/:id", async (req, res) => {
     res.status(500).send("Error al eliminar temática");
   }
 });
+
+// Obtener temas por temática
+router.get("/tematica/:tematica", async (req, res) => {
+  try {
+    const tematica = req.params.tematica;
+    const collection = await db.collection("topic");
+    const topics = await collection.find({ name: tematica }).toArray();
+    res.status(200).json(topics);
+  } catch (error) {
+    console.error("Error al buscar temas por temática:", error);
+    res.status(500).send("Error al buscar temas por temática");
+  }
+});
+
 
 export default router;
